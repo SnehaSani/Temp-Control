@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React,{ useState } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+  const [temperatureValue,setTemperatureValue] = useState(10);
+  const [temperatureColor,setTemperatureColor] = useState('cold');
+  
+  const tempIncrease = () => {
+    const newTemperature=temperatureValue+1;
+    if(newTemperature>=15){
+      setTemperatureColor('hot');
+    }
+    setTemperatureValue(newTemperature);
+  }
+  
+  const tempDecrease = () => {
+    const newTemperature=temperatureValue-1;
+    if(newTemperature<15){
+      setTemperatureColor('cold');
+    }
+    setTemperatureValue(newTemperature);
+  }
+
+  return(
+      <div className="temp_box">
+        <div className={`temp_circle ${temperatureColor}`}>{temperatureValue} oC</div>
+        <div className="button_container">
+          <button onClick={() => tempDecrease() }>-</button>
+          <button onClick={() => tempIncrease() }>+</button>
+        </div>
+      </div>
+  )
 }
 
 export default App;
